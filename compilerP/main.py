@@ -77,8 +77,8 @@ TT_SMALLER_EQUALS = "&KM"   # <=
 TT_EQUAL = "&MM"            # ==
 TT_LPAREN = "Lparen"        # (
 TT_RPAREN = "RPAREN"        # )
-t_LBrow    =  'Lbrow'       # {
-t_RBrow    =  'Rbrow'		# }
+TT_LBrow    =  'Lbrow'       # {
+TT_RBrow    =  'Rbrow'		# }
 TT_EOF			= 'EOF'
 
 
@@ -161,11 +161,11 @@ class Lexer:
 								tokens.append(Token(TT_DIV, pos_start=self.pos))
 								self.advance()
 						elif self.current_char == '{':
-                				tokens.append(Token(t_LBrow))
-                				self.advance()
-            			elif self.current_char == '}':
-              			  tokens.append(Token(t_RBrow))
-                		self.advance()
+								tokens.append(Token(TT_LBrow , pos_start=self.pos))
+								self.advance()
+						elif self.current_char == '}':
+								tokens.append(Token(TT_RBrow , pos_start=self.pos))
+								self.advance()
 						elif self.current_char == '(':
 								tokens.append(Token(TT_LPAREN, pos_start=self.pos))
 								self.advance()
