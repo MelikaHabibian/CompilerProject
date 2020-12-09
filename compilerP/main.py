@@ -344,7 +344,21 @@ class Interpreter:
 		return method(node)
 
 	def no_visit_method(self, node):
-		raise Exception (f"no visit method difined")
+		raise Exception (f"no visit_{type(node).__name__} method difined")
+
+	###################
+	def visit_NumberNode(self, node):
+		print("Found number node!")
+
+	def visit_BinOpNode(self, node):
+		print("found bin op node!")
+		self.visit(node.left_node)
+		self.visit(node.right_node)
+
+	def visit_unaryNode(self, node):
+		print("Found unary op node!")
+		self.visit(node.node )
+
 
 #######################################
 # RUN
@@ -359,5 +373,12 @@ def run(fn, text):
 		# Generate AST
 		parser = Parser(tokens)
 		ast = parser.parse()
+		if ast.error: return None, ast.error
 
-		return ast.node, ast.error
+		#Run programe
+		interpreter = Interpreter()
+		interpreter.visit(ast.node)
+
+
+		return None, None
+
